@@ -42,16 +42,20 @@ class Resource:
 
         self.path = path
         if zip_file is None:
-            if 'PYTHONPATH' not in os.environ:
-                raise FileNotFoundError(path)
-
             if path != "":
-                files = [file for file in [os.path.join(d, path) for d in (os.environ['PYTHONPATH'].split(':'))] if os.path.exists(file)]
-
-                if len(files) > 0:
-                    self.path = files[0]
-                else:
+                if os.path.exists(path):
+                    self.path = path
+            else:
+                if 'PYTHONPATH' not in os.environ:
                     raise FileNotFoundError(path)
+
+                if path != "":
+                    files = [file for file in [os.path.join(d, path) for d in (os.environ['PYTHONPATH'].split(':'))] if os.path.exists(file)]
+
+                    if len(files) > 0:
+                        self.path = files[0]
+                    else:
+                        raise FileNotFoundError(path)
 
     def list(self):
         if zip_file is None:

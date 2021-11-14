@@ -21,7 +21,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="local_resources",
-    version="0.0.1",
+    version="1.0.1",
     author="Daniel Sendula",
     description="Ability to fetch resources similar to Java Class.getResource()",
     long_description=long_description,
